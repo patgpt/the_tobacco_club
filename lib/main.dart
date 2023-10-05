@@ -1,6 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:the_tobacco_club/firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -11,10 +16,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'The Tobacco Club',
+      themeMode: ThemeMode.system,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 63, 205, 153)),
         useMaterial3: true,
       ),
+      // routes: {
+      //   "/": (context) => const MyHomePage(title: 'The Tobacco Club'),
+      //   "/signIn": (context) => const MyHomePage(title: 'Sign in'),
+      // },
+      darkTheme: ThemeData.dark(),
       home: const MyHomePage(title: 'The Tobacco Club'),
     );
   }
