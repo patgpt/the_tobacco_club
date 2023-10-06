@@ -42,8 +42,8 @@ dependencies:
   firebase_analytics: ^10.5.1
   firebase_ui_auth: ^1.8.0
   firebase_ui_oauth_twitter: ^1.2.11
+  flutter_dotenv: ^5.1.0
 
-dev_dependencies:
   flutter_test:
     sdk: flutter
 
@@ -63,10 +63,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  assets:
+    - assets/
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
