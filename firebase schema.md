@@ -2,7 +2,7 @@
 
 ## 1: Define Data Entities
 
-Define the data entities that will be used for data storage and manipulation. Data entities represent the various object types or concepts that our site will interact with, here is a list of data entities for our site:
+Define the data entities that will be used for data storage and manipulation. Data entities represent the various object types or concepts that our site will interact with. Here is a list of data entities for our site:
 - Users
 - Smoking Journals
 - Milestones/Achievements
@@ -32,4 +32,8 @@ Define the data entities that will be used for data storage and manipulation. Da
 // Resources/Articles Collection:
 // Document per resource or article.
 // Fields: title, content, author, category, created_date, likes, comments, etc.
+```
+
+## 3: Establishing Relationships
+
 
