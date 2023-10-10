@@ -275,6 +275,7 @@ firebase deploy --only hosting
 
 
 ============================
+
 ```javascript
 // Database Schema of The Tobacco Club (Cloud Firestore)
 
