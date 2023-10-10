@@ -58,3 +58,34 @@ The aforementioned relationship enables the retrieval of all members belonging t
 
 **In both of these instances, Firestore's capability to reference and link data across collections enables the establishment of significant relationships between entities. The relationships established within The Tobacco Club facilitate efficient query execution and data retrieval, thereby ensuring a seamless user experience.**
 
+
+## 4. Security Rules
+
+```javascript
+rules_version = '';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Smoking Journals collection
+    match /smoking_journals/{journalId} {
+      allow read, write: if request.auth != null && request.auth.uid == request.resource.data.user_id;
+    }
+    
+    // Define similar rules for other collections as needed.
+    
+  }
+}
+```
+
+## 5. Charts and Documentation
+
+To effectively document your Firebase schema, it is recommended to create charts and corresponding documentation:
+  - An Entity-Relationship Diagram (ERD) is utilised to visually represent the structure of data and its relationships.
+  - This document aims to provide a comprehensive overview of the fields and data types associated with each document.
+  - This document aims to outline the security rules and access control logic in place for the system.
+  - This document aims to provide an overview of data access patterns and common queries. It will discuss the various ways in which data can be accessed and the typical queries that are frequently used in data retrieval. Data access patterns refer to the methods and techniques employed to retrieve data from a database or other data storage systems. These patterns are designed to optimise the efficiency
