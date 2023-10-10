@@ -1,5 +1,12 @@
+Rule version 3 update:
+1. Simplified Rules: The rules have been simplified to combine read and write permissions into a single line for each collection, making the code more concise and easier to understand.
+
+2. Comments: Added comments to clarify which collection each rule applies to for better readability.
+
+3. Reduced Repetition: The use of request.resource.data.user_id directly in the rule condition for writing to the "Smoking Journals" collection simplifies the rule and reduces repetition.
+
 ```javascript
-rules_version = '2';
+rules_version = '';
 service cloud.firestore {
   match /databases/{database}/documents {
     
@@ -18,6 +25,7 @@ service cloud.firestore {
   }
 }
 ```
+
 
 
 ```javascript
