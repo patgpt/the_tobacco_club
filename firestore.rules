@@ -1,27 +1,47 @@
-Rule version 3 update:
-1. Simplified Rules: The rules have been simplified to combine read and write permissions into a single line for each collection, making the code more concise and easier to understand.
-
-2. Comments: Added comments to clarify which collection each rule applies to for better readability.
-
-3. Reduced Repetition: The use of request.resource.data.user_id directly in the rule condition for writing to the "Smoking Journals" collection simplifies the rule and reduces repetition.
-
 ```javascript
-rules_version = '';
+rules_version = '3';
 service cloud.firestore {
   match /databases/{database}/documents {
     
     // Users collection
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, update, delete: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
     }
     
     // Smoking Journals collection
     match /smoking_journals/{journalId} {
-      allow read, write: if request.auth != null && request.auth.uid == request.resource.data.user_id;
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId.id;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId.id;
+    }
+
+    // Images subcollection within Smoking Journals
+    match /smoking_journals/{journalId}/images/{imageId} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId.id;
+      allow create, update, delete: if request.auth != null && request.auth.uid == resource.data.userId.id;
     }
     
-    // Define similar rules for other collections as needed.
+    // Milestones/Achievements collection
+    match /milestones/{milestoneId} {
+      allow read;
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Milestones should not be modified or deleted
+    }
     
+    // Support Groups collection
+    match /support_groups/{groupId} {
+      allow read;
+      allow create: if request.auth != null;
+      allow update, delete: if resource.data.created_by.id == request.auth.uid;
+    }
+    
+    // Support Group Categories collection
+    match /support_group_categories/{categoryId} {
+      allow read;
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Categories should not be modified or deleted
+    }
   }
 }
 ```
