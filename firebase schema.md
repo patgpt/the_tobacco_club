@@ -273,3 +273,90 @@ firebase deploy --only hosting
 * Implement regular backups and data retention policies.
 * Keeping up-to-date with Firebase updates and new features to leverage improvements and enhancements.
 
+
+============================
+```javascript
+// Database Schema of The Tobacco Club (Cloud Firestore)
+
+// Users Collection:
+const usersCollection = firestore.collection('users');
+
+// Document each user with their unique user IDs.
+// Fields: uid (User ID), email, name, dateOfBirth (DOB), joinedDate, contactNumber, supportGroupId, created_at, updated_at, etc.
+const userDocument = {
+  uid: 'user123', // Firebase UID
+  email: 'user@example.com',
+  name: 'John Doe',
+  dateOfBirth: '1990-01-01',
+  joinedDate: '2023-01-15',
+  contactNumber: '+1234567890',
+  supportGroupId: 'group123', // Reference to the user's support group
+  created_at: firestore.FieldValue.serverTimestamp(),
+  updated_at: firestore.FieldValue.serverTimestamp(),
+};
+
+// Smoking Journals Collection:
+const smokingJournalsCollection = firestore.collection('smoking_journals');
+
+// Document per journal entry, with a unique ID.
+// Fields: userId (Reference to the user who created the journal entry), entryDate, numberOfCigarettes, notes, images (array of image IDs), created_at, updated_at, etc.
+const journalEntryDocument = {
+  userId: usersCollection.doc('user123'), // Reference to the user who created the entry
+  entryDate: '2023-02-20',
+  numberOfCigarettes: 10,
+  notes: 'Had a challenging day but resisted the urge to smoke.',
+  images: [smokingJournalsCollection.doc('image123')], // References to images associated with the entry
+  created_at: firestore.FieldValue.serverTimestamp(),
+  updated_at: firestore.FieldValue.serverTimestamp(),
+};
+
+// Images Subcollection within Smoking Journals:
+const imagesSubcollection = journalEntryDocument.images[0].collection('images');
+
+// Document per image, with a unique ID.
+// Fields: image details and data.
+const imageDocument = {
+  // Image details and data.
+};
+
+// Milestones/Achievements Collection:
+const milestonesCollection = firestore.collection('milestones');
+
+// Document per milestone or achievement.
+// Fields: title, description, reward, requiredActions, created_at, updated_at, etc.
+const milestoneDocument = {
+  title: '1 Week Smoke-Free',
+  description: 'Congratulations on reaching one week without smoking!',
+  reward: 'Self-pride and better health',
+  requiredActions: 'No smoking for 7 days',
+  created_at: firestore.FieldValue.serverTimestamp(),
+  updated_at: firestore.FieldValue.serverTimestamp(),
+};
+
+// Support Groups Collection:
+const supportGroupsCollection = firestore.collection('support_groups');
+
+// Document per support group, with a unique ID.
+// Fields: name, description, category_id (Reference to the category), members (array of user IDs), created_by (Reference to the creator), created_at, updated_at, etc.
+const supportGroupDocument = {
+  name: 'Quitters United',
+  description: 'A support group for those on their journey to quit smoking.',
+  category_id: supportGroupCategoriesCollection.doc('category123'), // Reference to the category document
+  members: [usersCollection.doc('user123'), usersCollection.doc('user456')], // References to users who are members of the group
+  created_by: usersCollection.doc('user789'), // Reference to the user who created the group
+  created_at: firestore.FieldValue.serverTimestamp(),
+  updated_at: firestore.FieldValue.serverTimestamp(),
+};
+
+// Support Group Categories Collection:
+const supportGroupCategoriesCollection = firestore.collection('support_group_categories');
+
+// Document per category, with a unique ID.
+// Fields: name (Category name), created_at, updated_at, etc.
+const supportGroupCategoryDocument = {
+  name: 'Health & Wellness',
+  created_at: firestore.FieldValue.serverTimestamp(),
+  updated_at: firestore.FieldValue.serverTimestamp(),
+};
+```
+
