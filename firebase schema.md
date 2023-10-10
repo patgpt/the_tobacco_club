@@ -165,7 +165,7 @@ To effectively document your Firebase schema, it is recommended to create charts
 * Continuously update the schema and rules of your application to adapt to evolving requirements and maintain optimal security and performance.
 
 
-## Backup and Recovery Procedures for The Tobacco Club
+## 7: Backup and Recovery Procedures for The Tobacco Club
 
 The implementation of backup and recovery strategies is of utmost importance in ensuring the protection of data for The Tobacco Club stop smoking programme. These strategies are implemented to guarantee the accessibility and protection of data, mitigating the risks associated with unforeseen events such as accidental deletions, system failures, or data corruption.
 
