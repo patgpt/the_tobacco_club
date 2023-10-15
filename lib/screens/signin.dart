@@ -1,9 +1,6 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:the_tobacco_club/constants/constants.dart';
-import 'package:the_tobacco_club/providers/theme_provider.dart';
-import 'package:the_tobacco_club/widgets/theme_toggle.dart';
 import 'package:the_tobacco_club/widgets/my_appbar.dart';
 
 class SignInPage extends StatelessWidget {
