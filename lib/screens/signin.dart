@@ -5,7 +5,7 @@ import 'package:the_tobacco_club/widgets/my_appbar.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
-
+  static const String routeName = '/sign-in';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

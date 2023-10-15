@@ -26,7 +26,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       elevation: 2,
       centerTitle: true,
-      actions: [themeToggle, ...actions],
+      actions: [
+        themeToggle,
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            // Navigator.pushNamed(context, '/settings');
+            Navigator.of(context).pushNamed('/settings');
+
+            /// show a SnackBar and tell they they are already on the profile page
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Navigating to the settings page.'),
+              ),
+            );
+          },
+        ),
+        ...actions
+      ],
     );
   }
 

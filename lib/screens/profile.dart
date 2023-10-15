@@ -5,24 +5,12 @@ import 'package:the_tobacco_club/widgets/my_drawer.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
-
+  static const String routeName = '/profile';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const CustomDrawer(),
-      appBar: CustomAppBar(title: "My Profile Page", actions: [
-        IconButton(
-          icon: const Icon(Icons.person),
-          onPressed: () {
-            /// show a SnackBar and tell they they are already on the profile page
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('You are already on the profile page.'),
-              ),
-            );
-          },
-        ),
-      ]),
+      appBar: const CustomAppBar(title: "My Profile Page", actions: []),
       body: ProfileScreen(
         providers: [
           EmailAuthProvider(),

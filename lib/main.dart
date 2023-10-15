@@ -1,16 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_storage/firebase_ui_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tobacco_club/color_schemes.dart';
 import 'package:the_tobacco_club/constants/constants.dart';
+import 'package:the_tobacco_club/constants/routes.dart';
 import 'package:the_tobacco_club/firebase_options.dart';
+import 'package:the_tobacco_club/providers/auth_provider.dart';
 import 'package:the_tobacco_club/providers/theme_provider.dart';
 import 'package:the_tobacco_club/screens/home.dart';
-import 'package:the_tobacco_club/screens/profile.dart';
 import 'package:the_tobacco_club/screens/signin.dart';
 
 void main() async {
@@ -38,12 +39,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // determine PWA colorScheme
+
+    // Set the status bar color to match the app bar color
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ThemeProvider>(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider<MyAuthProvider>(create: (_) => MyAuthProvider()),
       ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
+      child: Consumer2<ThemeProvider, MyAuthProvider>(
+        builder: (context, themeProvider, myAuthProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: title,
@@ -57,17 +67,17 @@ class MyApp extends StatelessWidget {
             themeMode: themeProvider.themeMode,
             theme: ThemeData.from(colorScheme: lightColorScheme),
             darkTheme: ThemeData.from(colorScheme: darkColorScheme),
-            initialRoute: FirebaseAuth.instance.currentUser == null
-                ? '/sign-in'
-                : '/home',
-            routes: {
-              '/home': (context) => const MyHome(),
-              '/sign-in': (context) => const SignInPage(),
-              '/profile': (context) => const ProfilePage(),
-            },
+            initialRoute: determineInitialRoute(myAuthProvider),
+            routes: routes,
           );
         },
       ),
     );
+  }
+
+  String determineInitialRoute(MyAuthProvider myAuthProvider) {
+    return myAuthProvider.isAuthenticated
+        ? MyHome.routeName
+        : SignInPage.routeName;
   }
 }
