@@ -1,8 +1,5 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:the_tobacco_club/providers/theme_provider.dart';
 import 'package:the_tobacco_club/widgets/my_appbar.dart';
 import 'package:the_tobacco_club/widgets/my_drawer.dart';
 
