@@ -4,6 +4,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:the_tobacco_club/color_schemes.dart';
+import 'package:the_tobacco_club/constants/constants.dart';
 import 'package:the_tobacco_club/firebase_options.dart';
 import 'package:the_tobacco_club/providers/theme_provider.dart';
 
@@ -54,16 +55,13 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 2,
-        title: const Text('Sign In'),
-      ),
+      appBar: const CustomAppBar(title: "Sign In"),
       body: SignInScreen(
         headerBuilder: (context, constraints, shrinkOffset) {
           return SizedBox(
             height: 100,
             width: 100,
-            child: Image.asset('assets/logo250x250.png'),
+            child: Image.asset(logo, fit: BoxFit.contain),
           );
         },
         providers: [
@@ -86,23 +84,42 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.brightness_4),
-            onPressed: () {
-              themeProvider.toggleTheme();
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              // Navigate to profile screen.
-            },
-          ),
-        ],
-      ),
+      drawer: Drawer(
+          elevation: 2,
+          child: DrawerHeader(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset(logo),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'The Tobacco Club',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
+            ),
+          )),
+      appBar: CustomAppBar(title: "Profile", actions: [
+        IconButton(
+          icon: const Icon(Icons.brightness_4),
+          onPressed: () {
+            themeProvider.toggleTheme();
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.person),
+          onPressed: () {
+            // Navigate to profile screen.
+          },
+        ),
+      ]),
       body: ProfileScreen(
         providers: [
           EmailAuthProvider(),
@@ -115,4 +132,26 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final List<Widget> actions;
+
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    this.actions = const [],
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(title),
+      actions: actions,
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }

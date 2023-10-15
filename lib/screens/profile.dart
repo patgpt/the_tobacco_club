@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              // Navigate to profile screen.
+              Navigator.pushReplacementNamed(context, '/profile');
             },
           ),
         ],
