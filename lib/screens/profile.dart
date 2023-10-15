@@ -11,16 +11,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: CustomAppBar(title: "My Profile Page", actions: [
-        IconButton(
-          icon: const Icon(Icons.brightness_4),
-          onPressed: () {
-            themeProvider.toggleTheme();
-          },
-        ),
         IconButton(
           icon: const Icon(Icons.person),
           onPressed: () {

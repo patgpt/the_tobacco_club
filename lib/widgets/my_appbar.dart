@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:the_tobacco_club/widgets/theme_toggle.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions;
-
+  final ThemeToggle themeToggle = const ThemeToggle();
   const CustomAppBar({
     Key? key,
     required this.title,
@@ -16,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title),
       elevation: 2,
       centerTitle: true,
-      actions: actions,
+      actions: [themeToggle, ...actions],
     );
   }
 
